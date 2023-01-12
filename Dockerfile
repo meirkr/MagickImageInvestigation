@@ -6,13 +6,13 @@ WORKDIR /src
 COPY MagickImageInvestigation.csproj ./
 
 # restore solution
-RUN dotnet restore MagickImageInvestigation.csproj
+RUN dotnet restore -r alpine-x64 MagickImageInvestigation.csproj
 
 # copy all the rest
 COPY . .
 
 # Build runtime image
-RUN dotnet publish --no-restore -c Release -o out "MagickImageInvestigation.csproj"
+RUN dotnet publish --no-restore -c Release -r alpine-x64 --sc false -o out "MagickImageInvestigation.csproj"
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine as final
